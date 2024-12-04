@@ -29,10 +29,15 @@ class MainActivity : AppCompatActivity() {
         actionBarDrawerToggle.syncState()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        laodFragment(BreakfastFragment())
+        laodFragment(HomeFragment())
 
         navigationView.setNavigationItemSelectedListener {
             when(it.itemId){
+                R.id.home->{
+                    laodFragment(HomeFragment())
+                    true
+                }
+
                 R.id.breakfast->{
                     laodFragment(BreakfastFragment())
                     true
