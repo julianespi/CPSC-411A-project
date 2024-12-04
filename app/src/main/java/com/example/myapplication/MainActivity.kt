@@ -33,13 +33,12 @@ class NamesAdapter(private val names: List<String>) : RecyclerView.Adapter<Names
 }
 
 class MainActivity : AppCompatActivity() {
-    @SuppressLint("WrongViewCast")
-    override fun onCreate(savedInstanceState: Bundle?) {
+        override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        val drawerLayout: DrawerLayout  = findViewById(R.id.drawer_view)
+        val drawerLayout: LinearLayout  = findViewById(R.id.drawer_view)
         val openDrawerButton: Button = findViewById(R.id.open_drawer_button)
         val recyclerView: RecyclerView = findViewById(R.id.names_recycler_view)
 
@@ -50,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 
         // Button click to open drawer
         openDrawerButton.setOnClickListener {
-            drawerLayout.openDrawer(findViewById(R.id.drawer_view))
+            drawerLayout.o(findViewById(R.id.drawer_view))
         }
 
     }
