@@ -1,56 +1,71 @@
 package com.example.myapplication
-
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.widget.Button
-import android.widget.LinearLayout
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
+import android.view.MenuItem
+import android.view.SurfaceControl.Transaction
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-
-class NamesAdapter(private val names: List<String>) : RecyclerView.Adapter<NamesAdapter.NameViewHolder>() {
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NameViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(android.R.layout.simple_list_item_1, parent, false)
-        return NameViewHolder(view)
-    }
-
-    override fun onBindViewHolder(holder: NameViewHolder, position: Int) {
-        holder.nameTextView.text = names[position]
-    }
-
-    override fun getItemCount(): Int = names.size
-
-    class NameViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val nameTextView: TextView = itemView.findViewById(android.R.id.text1)
-    }
-}
+import androidx.fragment.app.Fragment
+import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
-        override fun onCreate(savedInstanceState: Bundle?) {
+
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navigationView: NavigationView
+    private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
+        drawerLayout=findViewById(R.id.drawer_layout)
+        navigationView=findViewById(R.id.navigation)
+        actionBarDrawerToggle = ActionBarDrawerToggle(this,drawerLayout,R.string.nav_open,R.string.nav_close)
 
-        val drawerLayout: LinearLayout  = findViewById(R.id.drawer_view)
-        val openDrawerButton: Button = findViewById(R.id.open_drawer_button)
-        val recyclerView: RecyclerView = findViewById(R.id.names_recycler_view)
+        drawerLayout.addDrawerListener(actionBarDrawerToggle)
 
-        // Set up RecyclerView
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        val names = List(20) { "Name ${it + 1}" }
-        recyclerView.adapter = NamesAdapter(names)
+        actionBarDrawerToggle.syncState()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        // Button click to open drawer
-        openDrawerButton.setOnClickListener {
-            drawerLayout.o(findViewById(R.id.drawer_view))
+        laodFragment(BreakfastFragment())
+
+        navigationView.setNavigationItemSelectedListener {
+            when(it.itemId){
+                R.id.breakfast->{
+                    laodFragment(BreakfastFragment())
+                    true
+                }
+
+                R.id.lunch->{
+                    laodFragment(LunchFragment())
+                    true
+                }
+
+                R.id.dinner->{
+                    laodFragment(DinnerFragment())
+                    true
+                }
+
+                else -> {
+                    laodFragment(BreakfastFragment())
+                    true
+                }
+            }
         }
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if(actionBarDrawerToggle.onOptionsItemSelected(item)){
+            true
+        }else super.onOptionsItemSelected(item)
+    }
+
+    private fun laodFragment(fragment: Fragment){
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.container,fragment)
+        transaction.commit()
+        drawerLayout.closeDrawers()
     }
 }

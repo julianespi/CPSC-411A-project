@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="HardcodedText">
+
+    <item
+        android:id="@+id/breakfast"
+        android:title="breakfast" />
+
+    <item
+        android:id="@+id/lunch"
+        android:title="lunch" />
+
+    <item
+        android:id="@+id/dinner"
+        android:title="dinner" />
+
+</menu>
