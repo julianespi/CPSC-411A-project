@@ -1,13 +1,15 @@
 package com.example.myapplication
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.Spinner
+import android.widget.TextView
+import androidx.fragment.app.Fragment
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
@@ -17,7 +19,6 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class HomeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
@@ -37,6 +38,27 @@ class HomeFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Reference the views
+        val grocerySpinner: Spinner = view.findViewById(R.id.grocery_spinner)
+        val addButton: Button = view.findViewById(R.id.add_button)
+        val selectedItemsText: TextView = view.findViewById(R.id.selected_items_text)
+
+        // Populate the Spinner with grocery items
+        val groceries = listOf("Apples", "Bananas", "Carrots", "Milk", "Bread")
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, groceries)
+        grocerySpinner.adapter = adapter
+
+        // Button click listener
+        addButton.setOnClickListener {
+            val selectedItem = grocerySpinner.selectedItem.toString()
+            val currentText = selectedItemsText.text.toString()
+            selectedItemsText.text = "$currentText\n$selectedItem"
+        }
+    }
+
     companion object {
         /**
          * Use this factory method to create a new instance of
@@ -46,7 +68,6 @@ class HomeFragment : Fragment() {
          * @param param2 Parameter 2.
          * @return A new instance of fragment HomeFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             HomeFragment().apply {

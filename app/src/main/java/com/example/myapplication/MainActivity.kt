@@ -29,11 +29,10 @@ class MainActivity : AppCompatActivity() {
         actionBarDrawerToggle.syncState()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        laodFragment(HomeFragment())
-
         navigationView.setNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.home->{
+                    //thinking of changing to the pantry so that we can create a list of pantry
                     laodFragment(HomeFragment())
                     true
                 }
