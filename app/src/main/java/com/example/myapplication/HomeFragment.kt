@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +9,9 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.core.content.PackageManagerCompat.LOG_TAG
 import androidx.fragment.app.Fragment
+import kotlin.math.log
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -54,6 +57,7 @@ class HomeFragment : Fragment() {
         // Button click listener
         addButton.setOnClickListener {
             val selectedItem = grocerySpinner.selectedItem.toString()
+            Log.i("Input", "$selectedItem was added to pantry")
             val currentText = selectedItemsText.text.toString()
             selectedItemsText.text = "$currentText\n$selectedItem"
         }

@@ -6,15 +6,49 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    tools:ignore="HardcodedText">
+    tools:context=".MainActivity">
 
-<FrameLayout
-    android:id="@+id/container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
-    <!-- this the navigation view which draws and shows the navigation drawer -->
-    <!-- include the menu created in the menu folder -->
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Welcome Page -->
+        <FrameLayout
+            android:id="@+id/welcomePage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/welcomeMessage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Welcome to Our App!"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="32dp"
+                    android:textColor="#000"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/imageSlider"
+                    android:layout_width="0dp"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintTop_toBottomOf="@id/welcomeMessage"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </FrameLayout>
+    </FrameLayout>
+
+    <!-- Navigation Drawer -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation"
         android:layout_width="wrap_content"

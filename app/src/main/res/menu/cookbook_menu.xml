@@ -5,7 +5,7 @@
 
     <item
         android:id="@+id/home"
-        android:title="Home" />
+        android:title="Pantry" />
 
     <item
         android:id="@+id/breakfast"
