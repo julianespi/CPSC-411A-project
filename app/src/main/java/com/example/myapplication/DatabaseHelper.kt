@@ -84,6 +84,28 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         return result
     }
 
+    fun getDishIngredients(dishId: String): List<Map<String, Any?>>{
+        val result = mutableListOf<Map<String, Any?>>()
+        val cursor = this.readableDatabase.rawQuery(
+            "SELECT * FROM dish_ingredients WHERE dish_id = ?"
+            ,arrayOf(dishId)
+        )
+
+        cursor.use{if(cursor.moveToFirst()){
+            do{
+                val tuple = mutableMapOf<String, Any?>()
+
+                for (columnIndex in 0 until cursor.columnCount)
+                    tuple[cursor.getColumnName(columnIndex)] = cursor.getString(columnIndex)
+
+                result.add(tuple)
+            } while (cursor.moveToNext())
+        }}
+
+        cursor.close()
+        return result
+    }
+
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         TODO("Not yet implemented")
     }
